@@ -9,13 +9,33 @@ import {
   TableRow,
 } from '@mui/material'
 import { getRandomColors } from '../color'
-import { FavoriteBorder } from '@mui/icons-material'
+import { Favorite, FavoriteBorder } from '@mui/icons-material'
 
 export const ColorGenerator: FC = () => {
   const [colors, setColors] = useState<string[]>([])
+  const [likedColors, setLikedColors] = useState<string[]>([])
+
+  const isColorLiked = (colorCode: string): boolean => {
+    return likedColors.includes(colorCode)
+  }
+
+  const toggleLikedColor = (colorCode: string) => {
+    if (isColorLiked(colorCode)) {
+      setLikedColors(likedColors.filter((color) => color !== colorCode))
+    } else {
+      setLikedColors([...likedColors, colorCode])
+    }
+  }
 
   const onGenerateColorsClick = () => {
-    setColors(getRandomColors(8))
+    if (!colors.length) {
+      setColors(getRandomColors(8))
+    } else {
+      setColors([
+        ...likedColors,
+        ...getRandomColors(8 - likedColors.length, likedColors),
+      ])
+    }
   }
 
   return (
@@ -30,8 +50,11 @@ export const ColorGenerator: FC = () => {
               ></TableCell>
               <TableCell>{colorCode}</TableCell>
               <TableCell>
-                <IconButton>
-                  <FavoriteBorder />
+                <IconButton
+                  title={isColorLiked(colorCode) ? 'Dislike' : 'Like'}
+                  onClick={() => toggleLikedColor(colorCode)}
+                >
+                  {isColorLiked(colorCode) ? <Favorite /> : <FavoriteBorder />}
                 </IconButton>
               </TableCell>
             </TableRow>

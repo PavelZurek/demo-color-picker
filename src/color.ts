@@ -9,12 +9,15 @@ export const getRandomColor = (): string => {
   return color
 }
 
-export const getRandomColors = (count: number) => {
+export const getRandomColors = (
+  count: number,
+  excludedColors: string[] = []
+) => {
   const colors = []
 
   do {
     const newColor = getRandomColor()
-    if (!colors.includes(newColor)) {
+    if (!colors.includes(newColor) && !excludedColors.includes(newColor)) {
       colors.push(newColor)
     }
   } while (colors.length < count)
