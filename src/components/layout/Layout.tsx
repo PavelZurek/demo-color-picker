@@ -1,13 +1,13 @@
-import {FC} from 'react';
-import {Header} from './Header';
+import { FC } from 'react'
+import { Header } from './Header'
 
-const Layout: FC = ({children}) => {
-    return (
-        <>
-            <Header/>
-            {children}
-        </>
-    )
+const Layout: FC<{ children: JSX.Element }> = ({ children }) => {
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  )
 }
 
 export default Layout
