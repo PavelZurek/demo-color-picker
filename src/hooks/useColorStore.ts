@@ -48,8 +48,6 @@ const emptyState = (set) => ({
     }),
   removePrimaryColor: (color: string) =>
     set((state) => {
-      const primaryColorHistory = state.primaryColorHistory
-
       return {
         primaryColorHistory: state.primaryColorHistory.filter(
           (c) => c !== color
