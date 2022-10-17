@@ -9,6 +9,7 @@ export const SetPrimaryColorButton: FC<{ color: string }> = ({ color }) => {
   return (
     <IconButton
       title="Set As Primary Color"
+      color="primary"
       onClick={() => setPrimaryColor(color)}
     >
       <FormatColorFill />
