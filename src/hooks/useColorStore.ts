@@ -5,12 +5,15 @@ import { useEffect, useState } from 'react'
 interface ColorStoreState {
   colors: string[]
   likedColors: string[]
+  primaryColor?: string
   setColors: (colors: string[]) => void
+  setPrimaryColor: (color: string) => void
 }
 
 const emptyState = (set) => ({
   colors: [],
   likedColors: [],
+  primaryColor: undefined,
   setColors: (colors: string[]) => set(() => ({ colors })),
   toggleLikedColor: (color: string) =>
     set((state) => {
@@ -24,6 +27,10 @@ const emptyState = (set) => ({
         }
       }
     }),
+  setPrimaryColor: (primaryColor: string) =>
+    set(() => ({
+      primaryColor,
+    })),
 })
 
 const usePersistedColorStore = create(

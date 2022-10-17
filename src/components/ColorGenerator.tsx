@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@mui/material'
 import { getRandomColors } from '../color'
-import { Favorite, FavoriteBorder } from '@mui/icons-material'
+import { Favorite, FavoriteBorder, FormatColorFill } from '@mui/icons-material'
 import { useColorStore } from '../hooks/useColorStore'
 
 export const ColorGenerator: FC = () => {
@@ -17,6 +17,7 @@ export const ColorGenerator: FC = () => {
   const setColors = useColorStore((state) => state.setColors)
   const likedColors = useColorStore((state) => state.likedColors)
   const toggleLikedColor = useColorStore((state) => state.toggleLikedColor)
+  const setPrimaryColor = useColorStore((state) => state.setPrimaryColor)
 
   const isColorLiked = (colorCode: string): boolean => {
     return likedColors.includes(colorCode)
@@ -46,6 +47,12 @@ export const ColorGenerator: FC = () => {
                   onClick={() => toggleLikedColor(colorCode)}
                 >
                   {isColorLiked(colorCode) ? <Favorite /> : <FavoriteBorder />}
+                </IconButton>
+                <IconButton
+                  title="Set As Primary Color"
+                  onClick={() => setPrimaryColor(colorCode)}
+                >
+                  <FormatColorFill />
                 </IconButton>
               </TableCell>
             </TableRow>
