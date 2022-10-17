@@ -28,14 +28,10 @@ export const ColorGenerator: FC = () => {
   }
 
   const onGenerateColorsClick = () => {
-    if (!colors.length) {
-      setColors(getRandomColors(8))
-    } else {
-      setColors([
-        ...likedColors,
-        ...getRandomColors(8 - likedColors.length, likedColors),
-      ])
-    }
+    setColors([
+      ...likedColors,
+      ...getRandomColors(8 - likedColors.length, likedColors),
+    ])
   }
 
   return (
