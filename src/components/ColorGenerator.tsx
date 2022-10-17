@@ -4,6 +4,7 @@ import {
   IconButton,
   Stack,
   Table,
+  TableBody,
   TableCell,
   TableRow,
 } from '@mui/material'
@@ -20,20 +21,22 @@ export const ColorGenerator: FC = () => {
   return (
     <Stack paddingY={2} spacing={2}>
       <Table>
-        {colors.map((colorCode: string, index) => (
-          <TableRow key={`color-${index}`}>
-            <TableCell
-              width="50%"
-              style={{ backgroundColor: colorCode }}
-            ></TableCell>
-            <TableCell>{colorCode}</TableCell>
-            <TableCell>
-              <IconButton>
-                <FavoriteBorder />
-              </IconButton>
-            </TableCell>
-          </TableRow>
-        ))}
+        <TableBody>
+          {colors.map((colorCode: string, index) => (
+            <TableRow key={`color-${index}`}>
+              <TableCell
+                width="50%"
+                style={{ backgroundColor: colorCode }}
+              ></TableCell>
+              <TableCell>{colorCode}</TableCell>
+              <TableCell>
+                <IconButton>
+                  <FavoriteBorder />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
       <Button variant="contained" onClick={onGenerateColorsClick}>
         Generate Color Palette
