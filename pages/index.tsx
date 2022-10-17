@@ -1,13 +1,15 @@
 import { NextPage } from 'next'
-import { Container } from '@mui/material'
+import { Container, Stack } from '@mui/material'
 import { ColorGenerator } from '../src/components/ColorGenerator'
-import { PrimaryColorHistoryList } from '../src/components/PrimaryColorHistoryList'
+import { PrimaryColorHistory } from '../src/components/PrimaryColorHistory'
 
 const IndexPage: NextPage = () => {
   return (
     <Container maxWidth="lg">
-      <ColorGenerator />
-      <PrimaryColorHistoryList />
+      <Stack paddingY={4} spacing={4}>
+        <ColorGenerator />
+        <PrimaryColorHistory />
+      </Stack>
     </Container>
   )
 }

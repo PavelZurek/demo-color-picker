@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useColorStore } from '../hooks/useColorStore'
+import { useColorStore } from '../../hooks/useColorStore'
 import { IconButton } from '@mui/material'
 import { FormatColorFill } from '@mui/icons-material'
 

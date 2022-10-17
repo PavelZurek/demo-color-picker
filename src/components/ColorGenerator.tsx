@@ -1,17 +1,10 @@
 import { FC } from 'react'
-import {
-  Button,
-  IconButton,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-} from '@mui/material'
+import { Button, IconButton, Stack, Typography } from '@mui/material'
 import { getRandomColors } from '../color'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import { useColorStore } from '../hooks/useColorStore'
-import { SetPrimaryColorButton } from './SetPrimaryColorButton'
+import { SetPrimaryColorButton } from './partials/SetPrimaryColorButton'
+import { ColorTable } from './partials/ColorTable'
 
 export const ColorGenerator: FC = () => {
   const colors = useColorStore((state) => state.colors)
@@ -30,30 +23,22 @@ export const ColorGenerator: FC = () => {
     ])
   }
 
+  const colorActions = (color: string) => (
+    <>
+      <IconButton
+        title={isColorLiked(color) ? 'Dislike' : 'Like'}
+        onClick={() => toggleLikedColor(color)}
+      >
+        {isColorLiked(color) ? <Favorite /> : <FavoriteBorder />}
+      </IconButton>
+      <SetPrimaryColorButton color={color} />
+    </>
+  )
+
   return (
     <Stack paddingY={2} spacing={2}>
-      <Table>
-        <TableBody>
-          {colors?.map((colorCode) => (
-            <TableRow key={colorCode}>
-              <TableCell
-                width="50%"
-                style={{ backgroundColor: colorCode }}
-              ></TableCell>
-              <TableCell>{colorCode}</TableCell>
-              <TableCell>
-                <IconButton
-                  title={isColorLiked(colorCode) ? 'Dislike' : 'Like'}
-                  onClick={() => toggleLikedColor(colorCode)}
-                >
-                  {isColorLiked(colorCode) ? <Favorite /> : <FavoriteBorder />}
-                </IconButton>
-                <SetPrimaryColorButton color={colorCode} />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <Typography variant="h4">Color Generator</Typography>
+      <ColorTable colors={colors} actions={colorActions} />
       <Button variant="contained" onClick={onGenerateColorsClick}>
         Generate Color Palette
       </Button>
