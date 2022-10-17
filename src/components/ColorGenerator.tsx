@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import {
   Button,
   IconButton,
@@ -10,21 +10,16 @@ import {
 } from '@mui/material'
 import { getRandomColors } from '../color'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
+import { useColorStore } from '../hooks/useColorStore'
 
 export const ColorGenerator: FC = () => {
-  const [colors, setColors] = useState<string[]>([])
-  const [likedColors, setLikedColors] = useState<string[]>([])
+  const colors = useColorStore((state) => state.colors)
+  const setColors = useColorStore((state) => state.setColors)
+  const likedColors = useColorStore((state) => state.likedColors)
+  const toggleLikedColor = useColorStore((state) => state.toggleLikedColor)
 
   const isColorLiked = (colorCode: string): boolean => {
     return likedColors.includes(colorCode)
-  }
-
-  const toggleLikedColor = (colorCode: string) => {
-    if (isColorLiked(colorCode)) {
-      setLikedColors(likedColors.filter((color) => color !== colorCode))
-    } else {
-      setLikedColors([...likedColors, colorCode])
-    }
   }
 
   const onGenerateColorsClick = () => {
@@ -38,8 +33,8 @@ export const ColorGenerator: FC = () => {
     <Stack paddingY={2} spacing={2}>
       <Table>
         <TableBody>
-          {colors.map((colorCode: string, index) => (
-            <TableRow key={`color-${index}`}>
+          {colors?.map((colorCode) => (
+            <TableRow key={colorCode}>
               <TableCell
                 width="50%"
                 style={{ backgroundColor: colorCode }}
