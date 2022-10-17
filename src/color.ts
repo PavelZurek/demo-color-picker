@@ -13,6 +13,8 @@ export const getRandomColors = (
   count: number,
   excludedColors: string[] = []
 ) => {
+  if (count < 1) return []
+
   const colors = []
 
   do {
