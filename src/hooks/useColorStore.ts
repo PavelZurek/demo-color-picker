@@ -9,6 +9,7 @@ interface ColorStoreState {
   primaryColorHistory: string[]
   setColors: (colors: string[]) => void
   setPrimaryColor: (color: string) => void
+  removePrimaryColor: (color: string) => void
 }
 
 const emptyState = (set) => ({
@@ -43,6 +44,16 @@ const emptyState = (set) => ({
       return {
         primaryColorHistory,
         primaryColor,
+      }
+    }),
+  removePrimaryColor: (color: string) =>
+    set((state) => {
+      const primaryColorHistory = state.primaryColorHistory
+
+      return {
+        primaryColorHistory: state.primaryColorHistory.filter(
+          (c) => c !== color
+        ),
       }
     }),
 })
