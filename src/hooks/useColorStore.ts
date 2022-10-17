@@ -6,6 +6,7 @@ interface ColorStoreState {
   colors: string[]
   likedColors: string[]
   primaryColor?: string
+  primaryColorHistory: string[]
   setColors: (colors: string[]) => void
   setPrimaryColor: (color: string) => void
 }
@@ -14,6 +15,7 @@ const emptyState = (set) => ({
   colors: [],
   likedColors: [],
   primaryColor: undefined,
+  primaryColorHistory: [],
   setColors: (colors: string[]) => set(() => ({ colors })),
   toggleLikedColor: (color: string) =>
     set((state) => {
@@ -28,9 +30,21 @@ const emptyState = (set) => ({
       }
     }),
   setPrimaryColor: (primaryColor: string) =>
-    set(() => ({
-      primaryColor,
-    })),
+    set((state) => {
+      const primaryColorHistory = state.primaryColorHistory
+
+      if (!primaryColorHistory.includes(primaryColor)) {
+        primaryColorHistory.push(primaryColor)
+      }
+      if (primaryColorHistory.length > 5) {
+        primaryColorHistory.shift()
+      }
+
+      return {
+        primaryColorHistory,
+        primaryColor,
+      }
+    }),
 })
 
 const usePersistedColorStore = create(
